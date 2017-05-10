@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   socket.on('client coordinates', (msg) => {
-    console.log(msg);
+    io.emit('server response', msg);
   });
 });
 

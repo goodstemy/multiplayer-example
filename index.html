@@ -13,7 +13,6 @@
         width: 30px;
         height: 30px;
         border: 2px solid black;
-        transition: all .001s ease-in-out;
     }
 </style>
 
@@ -58,9 +57,27 @@
       })();
     }
 
+    socket.on('server response', (msg) => {
+      try {
+        var parsedMsg = JSON.parse(msg);
+
+        if (!!parsedMsg && !!parsedMsg.element) {
+          var element = document.getElementById(parsedMsg.element);
+
+          element.style.left = parsedMsg.X + "px";
+          element.style.top  = parsedMsg.Y + "px";
+        }
+
+      } catch (err) {
+        console.error(err);
+      }
+
+
+    });
+
     setInterval(function(){
       sendData();
-    }, 100);
+    }, 30);
 
     //=====================
     //|      helpers:     |
