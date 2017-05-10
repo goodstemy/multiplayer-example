@@ -19,12 +19,12 @@ io.on('connection', (socket) => {
 
     if (!!parsedMsg.element && !cache) {
       cache = msg;
-      io.emit('server response', cache);
+      socket.broadcast.emit('server response', cache);
     } else if (!parsedMsg.element && !!cache) {
       msg = cache;
-      io.emit('server response', msg);
+      socket.broadcast.emit('server response', msg);
     } else {
-      io.emit('server response', msg);
+      socket.broadcast.emit('server response', msg);
     }
   });
 });
