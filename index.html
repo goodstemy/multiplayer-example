@@ -42,7 +42,9 @@
       (function(){
         var element = elements[i];
 
-        elements[i].addEventListener("mousedown", function(){ mouseMove(element); });
+        elements[i].onmousedown = function(e) {
+          mouseMove(element)
+        }
       })();
     }
 
@@ -70,18 +72,19 @@
     function mouseMove(element) {
       isDragging = true;
 
-      document.addEventListener("mousemove", function(e) {
+      document.onmousemove = function(e) {
         if (isDragging) {
           var x = e.clientX;
           var y = e.clientY;
 
           console.log(x, ":", y);
         }
-      });
+      }
 
-      document.addEventListener("mouseup", function(e) {
+
+      document.onmouseup = function(e) {
         isDragging = false;
-      });
+      };
     }
 
 </script>
