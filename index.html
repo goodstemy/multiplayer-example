@@ -13,6 +13,7 @@
         width: 30px;
         height: 30px;
         border: 2px solid black;
+        transition: all .01s ease-in;
     }
 </style>
 
@@ -58,6 +59,8 @@
     }
 
     socket.on('server response', (msg) => {
+        console.log(msg);
+
       try {
         var parsedMsg = JSON.parse(msg);
 
@@ -67,17 +70,14 @@
           element.style.left = parsedMsg.X + "px";
           element.style.top  = parsedMsg.Y + "px";
         }
-
       } catch (err) {
         console.error(err);
       }
-
-
     });
 
     setInterval(function(){
       sendData();
-    }, 30);
+    }, 100);
 
     //=====================
     //|      helpers:     |
@@ -108,8 +108,7 @@
           elementData.X       = x;
           elementData.Y       = y;
         }
-      }
-
+      };
 
       document.onmouseup = function(e) {
         isDragging = false;
