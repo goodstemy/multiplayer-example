@@ -30,6 +30,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
     var elements = document.getElementsByClassName("block");
+    var isDragging = false;
 
     for (var i = 0; i < elements.length; i++) {
       elements[i].style.backgroundColor = randomColor();
@@ -59,7 +60,6 @@
     }
 
     function sendData(element) {
-      console.log(element);
       var x = element.style.left;
       var y = element.style.top;
 
@@ -67,12 +67,19 @@
     }
 
     function mouseMove(element) {
-      document.addEventListener("mousemove", function(e){
-        var x = e.clientX;
-        var y = e.clientY;
+      isDragging = true;
 
-        console.log(element);
-        console.log(x, ":", y);
+      document.addEventListener("mousemove", function(e){
+        if (isDragging) {
+          var x = e.clientX;
+          var y = e.clientY;
+
+          console.log(x, ":", y);
+        }
+      });
+
+      document.addEventListener("mouseup", function(e) {
+        isDragging = false;
       });
     }
 
