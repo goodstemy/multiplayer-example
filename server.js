@@ -14,19 +14,16 @@ app.get('/', (req, res) => {
 let cache = null;
 
 io.on('connection', (socket) => {
-  socket.on('client coordinates', (msg) => {
-    const parsedMsg = JSON.parse(msg);
+  io.emit('cache response', cache);
 
-    if (!!parsedMsg.element && !cache) {
-      cache = msg;
-      socket.broadcast.emit('server response', cache);
-    } else if (!parsedMsg.element && !!cache) {
-      msg = cache;
-      socket.broadcast.emit('server response', msg);
-    } else {
-      socket.broadcast.emit('server response', msg);
-    }
+  socket.on('client coordinates', (msg) => {
+    socket.broadcast.emit('server response', msg);
+  });
+
+  socket.on('all coordinates', (msg) => {
+    cache = JSON.parse(msg);
   });
 });
+
 
 server.listen(PORT);
